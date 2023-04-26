@@ -163,6 +163,8 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
   renderAvatar?(props: AvatarProps<TMessage>): React.ReactNode | null
   /* Custom message bubble */
   renderBubble?(props: Bubble<TMessage>['props']): React.ReactNode
+  /* Custom content above messages */
+  renderAboveMessages?(): React.ReactNode | null
   /*Custom system message */
   renderSystemMessage?(props: SystemMessageProps<TMessage>): React.ReactNode
   /* Callback when a message bubble is pressed; default is to do nothing */
@@ -367,6 +369,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     minComposerHeight: PropTypes.number,
     maxComposerHeight: PropTypes.number,
     alignTop: PropTypes.bool,
+    renderAboveMessages: PropTypes.func,
   }
 
   static append<TMessage extends IMessage>(
@@ -883,6 +886,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
           <View testID={TEST_ID.WRAPPER} style={styles.wrapper}>
             <ActionSheetProvider ref={this._actionSheetRef}>
               <View style={styles.container} onLayout={this.onMainViewLayout}>
+                {this.props.renderAboveMessages?.()}
                 {this.renderMessages()}
                 {this.renderInputToolbar()}
               </View>
