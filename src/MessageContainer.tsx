@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   emptyChatContainer: {
-    flex: 1,
     transform: [{ scaleY: -1 }],
   },
   headerWrapper: {
